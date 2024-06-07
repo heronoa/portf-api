@@ -17,7 +17,7 @@ router.post("/updatepassword", AuthController.updatePassword);
 router.post("/validatetoken", AuthController.validateToken);
 router.get("/authping", authMiddleware, AuthController.ping);
 router.get("/projects", authMiddleware, ProjectsController.getAll);
-router.get("/porjects/:id", authMiddleware, ProjectsController.getSingle);
+router.get("/projects/:id", authMiddleware, ProjectsController.getSingle);
 router.post(
   "/projects/add",
   authMiddleware,
@@ -33,9 +33,9 @@ router.post(
   ]) as any,
   ProjectsController.add,
 );
-router.post("/costumers/remove", authMiddleware, ProjectsController.remove);
+router.post("/projects/remove", authMiddleware, ProjectsController.remove);
 router.post(
-  "/costumers/update",
+  "/projects/update",
   authMiddleware,
   upload.fields([
     {

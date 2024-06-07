@@ -34,9 +34,7 @@ export const authTokensSchema = new Schema<AuthToken>({
 });
 
 export const UserModel = model<User>("Users", userSchema);
-// export const DebtModel = model<Debt>("Debts", debtSchema);
 export const ProjectModel = model<Project>("Projects", projectSchema);
-// export const CostumerModel = model<Costumer>("Costumers", costumerSchema);
 export const AuthTokensModel = model<AuthToken>("AuthTokens", authTokensSchema);
 
 dotenv.config();

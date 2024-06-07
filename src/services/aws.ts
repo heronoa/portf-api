@@ -46,16 +46,6 @@ const s3_client_params = {
 
 export const s3 = new S3(s3_client_params);
 
-async function listBucketsForAccount() {
-  try {
-    const res = await s3.listBuckets({});
-    console.log("res", res);
-    console.log("SUCCESS check_list_buckets");
-  } catch (err) {
-    console.error("FAIL check_list_buckets got error", err);
-  }
-}
-
 export const uploadAWS = async (file: {
   fieldname: string;
   originalname: string;
