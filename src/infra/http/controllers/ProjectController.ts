@@ -36,8 +36,6 @@ export class ProjectsController {
 
     const { title, desc } = JSON.parse(data);
 
-    console.log({ files: JSON.stringify(files), data: JSON.stringify(data) });
-
     const project_id = randomUUID();
     let thumbLocation, imagesLocation;
 
@@ -51,23 +49,23 @@ export class ProjectsController {
         awsError.push({ result: false, msg: "AWS S3 Bucket Error - thumb" });
       }
     }
-    if (files?.images?.[0]?.buffer) {
-      files?.images?.forEach(async (file: any) => {
-        if (file.buffer) {
-          const s3BucketRef = await uploadAWS(file);
-          if (s3BucketRef?.location) {
-            imagesLocation.push(s3BucketRef?.location);
-          } else {
-            awsError.push({
-              result: false,
-              msg: "AWS S3 Bucket Error - images",
-            });
-          }
-        }
-      });
-    }
+    // if (files?.images?.[0]?.buffer) {
+    //   files?.images?.forEach(async (file: any) => {
+    //     if (file.buffer) {
+    //       const s3BucketRef = await uploadAWS(file);
+    //       if (s3BucketRef?.location) {
+    //         imagesLocation.push(s3BucketRef?.location);
+    //       } else {
+    //         awsError.push({
+    //           result: false,
+    //           msg: "AWS S3 Bucket Error - images",
+    //         });
+    //       }
+    //     }
+    //   });
+    // }
 
-    console.log({ awsError });
+    // console.log({ awsError });
 
     const newProjectData = new Project(
       project_id,
@@ -163,8 +161,6 @@ export class ProjectsController {
 
     const deletionResult = imagesDeletionResult.some((e: any) => e === false);
 
-    console.log({ imagesToDelete, imagesDeletionResult, deletionResult });
-
     if (projectResult) {
       res.status(200).json({
         message: "Project Removed Sucessfully",
@@ -174,19 +170,19 @@ export class ProjectsController {
     }
   }
 
-  static async sendContact(req: Request, res: Response) {
-    const {
-      subject = undefined,
-      message = undefined,
-      contact = undefined,
-    } = req.body;
+  // static async sendContact(req: Request, res: Response) {
+  //   const {
+  //     subject = undefined,
+  //     message = undefined,
+  //     contact = undefined,
+  //   } = req.body;
 
-    try {
-      const resMail = await sendEmail({ subject, message, contact });
-      return res.status(200).json({ result: true, email: resMail });
-    } catch (err) {
-      console.log({ err });
-      return res.status(500).json({ result: false, err });
-    }
-  }
+  //   try {
+  //     const resMail = await sendEmail({ subject, message, contact });
+  //     return res.status(200).json({ result: true, email: resMail });
+  //   } catch (err) {
+  //     console.log({ err });
+  //     return res.status(500).json({ result: false, err });
+  //   }
+  // }
 }
