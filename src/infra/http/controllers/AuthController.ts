@@ -4,8 +4,8 @@ import { Request, Response } from "express";
 import { AuthTokensModel, UserModel } from "../../../mongoose/mongodb";
 import { randomUUID } from "crypto";
 import { UpdateOrCreate } from "../../../mongoose/utils";
-import { timestampFromNow } from "../../../utils/time";
 import { sendEmail, sendRecoverEmail } from "../../../utils/messager";
+import { timestampFromNow } from "../../../utils/time";
 
 export class AuthController {
   static async token(req: Request, res: Response) {
