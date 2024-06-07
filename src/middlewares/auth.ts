@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 
-import { prisma } from "../../prisma/prismaClient";
 import { UserModel } from "../mongoose/mongodb";
 
 export const authMiddleware = async (

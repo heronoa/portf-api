@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 
-import { prisma } from "../../../../prisma/prismaClient";
 import { AuthTokensModel, UserModel } from "../../../mongoose/mongodb";
 import { randomUUID } from "crypto";
 import { UpdateOrCreate } from "../../../mongoose/utils";

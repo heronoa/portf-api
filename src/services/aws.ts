@@ -64,6 +64,7 @@ export const uploadAWS = async (file: {
   size: number;
   buffer: any;
 }): Promise<AWSBucketRef | any> => {
+  console.log(file);
   try {
     const parallelUploads3 = new Upload({
       client: s3,
@@ -84,8 +85,12 @@ export const uploadAWS = async (file: {
 
     const result = await parallelUploads3.done();
 
+    console.log(result);
+
     return result;
   } catch (err) {
+    console.log(err);
+
     return JSON.stringify(err);
   }
 };

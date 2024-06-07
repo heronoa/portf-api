@@ -3,8 +3,7 @@ import multer from "multer";
 
 import { authMiddleware } from "../../../middlewares/auth";
 import { AuthController } from "../controllers/AuthController";
-import { CostumersController } from "../controllers/CostumersController";
-import { DebtsController } from "../controllers/DebtsController";
+import { ProjectsController } from "../controllers/ProjectController";
 
 const router = Router();
 
@@ -17,71 +16,39 @@ router.post("/forgotpassword", AuthController.forgotPassword);
 router.post("/updatepassword", AuthController.updatePassword);
 router.post("/validatetoken", AuthController.validateToken);
 router.get("/authping", authMiddleware, AuthController.ping);
-router.get("/costumers", authMiddleware, CostumersController.getAllCostumers);
-router.get(
-  "/costumers/:id",
-  authMiddleware,
-  CostumersController.getSingleCostumer,
-);
-router.get("/debts", authMiddleware, DebtsController.getAllDebts);
-router.get("/debts/:id", authMiddleware, DebtsController.getSingleDebt);
+router.get("/projects", authMiddleware, ProjectsController.getAll);
+router.get("/porjects/:id", authMiddleware, ProjectsController.getSingle);
 router.post(
-  "/debts/add",
-  authMiddleware,
-  upload.single("file") as any,
-  DebtsController.addDebt,
-);
-router.post(
-  "/debts/update",
-  authMiddleware,
-  upload.single("file") as any,
-  DebtsController.updateDebt,
-);
-router.post("/debts/remove", authMiddleware, DebtsController.removeDebt);
-router.post(
-  "/costumers/add",
+  "/projects/add",
   authMiddleware,
   upload.fields([
     {
-      name: "cpfDoc",
+      name: "thumb",
       maxCount: 1,
     },
     {
-      name: "rgDoc",
-      maxCount: 1,
-    },
-    {
-      name: "otherDoc",
-      maxCount: 1,
+      name: "images",
+      maxCount: 9,
     },
   ]) as any,
-  CostumersController.addCostumer,
+  ProjectsController.add,
 );
-router.post(
-  "/costumers/remove",
-  authMiddleware,
-  CostumersController.removeCostumer,
-);
+router.post("/costumers/remove", authMiddleware, ProjectsController.remove);
 router.post(
   "/costumers/update",
   authMiddleware,
   upload.fields([
     {
-      name: "cpfDoc",
+      name: "thumb",
       maxCount: 1,
     },
     {
-      name: "rgDoc",
-      maxCount: 1,
-    },
-    {
-      name: "otherDoc",
-      maxCount: 1,
+      name: "images",
+      maxCount: 9,
     },
   ]) as any,
-  CostumersController.updateCostumer,
+  ProjectsController.update,
 );
-router.get("/debt/getlate", authMiddleware, DebtsController.sendLateMessages);
-router.post("/debts/notify", authMiddleware, DebtsController.sendNotify);
+router.post("/sendcontact", authMiddleware, ProjectsController.sendContact);
 
 export default router;

@@ -5,7 +5,6 @@ import express from "express";
 
 import router from "./infra/http/routes";
 import { errorMiddleware } from "./middlewares/error";
-import { cronJobs } from "./worker";
 import { s3 } from "./services/aws";
 const app = express();
 dotenv.config();
