@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/src/index.js",
+    "start": "node dist/index.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "seed": "tsnd --transpile-only --ignore-watch node_modules src/utils/seed.ts",
