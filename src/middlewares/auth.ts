@@ -18,7 +18,6 @@ export const authMiddleware = async (
     )?.[0];
 
     if (user) {
-      // console.log("user:", user);
       req.user = {
         email: user.email,
         uid: user.id,

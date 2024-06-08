@@ -4,8 +4,8 @@ import { Request, Response } from "express";
 import { AuthTokensModel, UserModel } from "../../../mongoose/mongodb";
 import { randomUUID } from "crypto";
 import { UpdateOrCreate } from "../../../mongoose/utils";
-import { sendRecoverEmail } from "../../../utils/messager";
-import { timestampFromNow } from "../../../utils/time";
+// import { sendRecoverEmail } from "../../../utils/messager";
+// import { timestampFromNow } from "../../../utils/time";
 
 export class AuthController {
   static async token(req: Request, res: Response) {
@@ -83,21 +83,21 @@ export class AuthController {
     }
 
     const token = await bcrypt.hash(randomUUID(), 10);
-    const expires_at = timestampFromNow({ minutes: 15 });
+    // const expires_at = timestampFromNow({ minutes: 15 });
 
-    const tokenResult = await UpdateOrCreate(
-      AuthTokensModel,
-      { email },
-      { email, token, expires_at },
-    );
+    // const tokenResult = await UpdateOrCreate(
+    //   AuthTokensModel,
+    //   { email },
+    //   { email, token, expires_at },
+    // );
 
-    sendRecoverEmail(
-      email,
-      `${process.env.CLIENT_URL}/redefinepassword?token=${token}`,
-    );
-    if (tokenResult.result) {
-      return res.status(200).json({ result: true });
-    }
+    // sendRecoverEmail(
+    //   email,
+    //   `${process.env.CLIENT_URL}/redefinepassword?token=${token}`,
+    // );
+    // if (tokenResult.result) {
+    //   return res.status(200).json({ result: true });
+    // }
     res.status(500).json({ result: false, msg: "Internal server error" });
   }
   static async validateToken(req: Request, res: Response) {
