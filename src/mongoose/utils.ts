@@ -4,7 +4,6 @@ export async function UpdateOrCreate(
   data: any,
 ) {
   try {
-    console.log({ key });
     const exists = await Model.findOne(key);
 
     if (exists) {

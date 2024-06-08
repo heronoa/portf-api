@@ -44,7 +44,7 @@ export async function sendRecoverEmail(email: string, msg?: string) {
     service: "Gmail",
     host: "smtp.gmail.com",
     auth: {
-      user: process.env.EMAIL,
+      user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
   });

@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { AuthTokensModel, UserModel } from "../../../mongoose/mongodb";
 import { randomUUID } from "crypto";
 import { UpdateOrCreate } from "../../../mongoose/utils";
-import { sendEmail, sendRecoverEmail } from "../../../utils/messager";
+import { sendRecoverEmail } from "../../../utils/messager";
 import { timestampFromNow } from "../../../utils/time";
 
 export class AuthController {
@@ -68,7 +68,6 @@ export class AuthController {
     const findToken = (await AuthTokensModel.find({ token }))[0];
 
     if (findToken.expires_at > Date.now()) {
-
       UpdateOrCreate(UserModel, { email: findToken.email }, { password });
       return res.status(200).json({ result: true });
     }

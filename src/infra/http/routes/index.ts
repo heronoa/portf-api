@@ -3,7 +3,7 @@ import multer from "multer";
 
 import { authMiddleware } from "../../../middlewares/auth";
 import { AuthController } from "../controllers/AuthController";
-// import { ProjectsController } from "../controllers/ProjectController";
+import { ProjectsController } from "../controllers/ProjectController";
 
 const router = Router();
 
@@ -16,39 +16,39 @@ router.post("/forgotpassword", AuthController.forgotPassword);
 router.post("/updatepassword", AuthController.updatePassword);
 router.post("/validatetoken", AuthController.validateToken);
 router.get("/authping", authMiddleware, AuthController.ping);
-// router.get("/projects", authMiddleware, ProjectsController.getAll);
-// router.get("/projects/:id", authMiddleware, ProjectsController.getSingle);
-// router.post(
-//   "/projects/add",
-//   authMiddleware,
-//   upload.fields([
-//     {
-//       name: "thumb",
-//       maxCount: 1,
-//     },
-//     {
-//       name: "images",
-//       maxCount: 9,
-//     },
-//   ]) as any,
-//   ProjectsController.add,
-// );
-// router.post("/projects/remove", authMiddleware, ProjectsController.remove);
-// router.post(
-//   "/projects/update",
-//   authMiddleware,
-//   upload.fields([
-//     {
-//       name: "thumb",
-//       maxCount: 1,
-//     },
-//     {
-//       name: "images",
-//       maxCount: 9,
-//     },
-//   ]) as any,
-//   ProjectsController.update,
-// );
+router.get("/projects", authMiddleware, ProjectsController.getAll);
+router.get("/projects/:id", authMiddleware, ProjectsController.getSingle);
+router.post(
+  "/projects/add",
+  authMiddleware,
+  upload.fields([
+    {
+      name: "thumb",
+      maxCount: 1,
+    },
+    {
+      name: "images",
+      maxCount: 9,
+    },
+  ]) as any,
+  ProjectsController.add,
+);
+router.post("/projects/remove", authMiddleware, ProjectsController.remove);
+router.post(
+  "/projects/update",
+  authMiddleware,
+  upload.fields([
+    {
+      name: "thumb",
+      maxCount: 1,
+    },
+    {
+      name: "images",
+      maxCount: 9,
+    },
+  ]) as any,
+  ProjectsController.update,
+);
 // router.post("/sendcontact", authMiddleware, ProjectsController.sendContact);
 
 export default router;

@@ -51,14 +51,6 @@ export const timestampFromNow = ({
   return futureTimestamp;
 };
 
-export async function getTime() {
-  const time = await axios.get(
-    "http://worldtimeapi.org/api/timezone/America/Belem",
-  );
-
-  return time.data;
-}
-
 export function getClosestDate(
   dates: Date[],
 ): { data: Date; posicao: number } | null {

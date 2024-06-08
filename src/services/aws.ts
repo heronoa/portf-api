@@ -23,19 +23,13 @@ interface AWSBucketRef {
   Location: string;
 }
 
-const { AWS_BUCKET_REGION, BUCKET_ACESS_KEY, BUCKET_SECRET_KEY, S3_BUCKET } =
-  process.env;
-// console.log({ AWS_BUCKET_REGION, BUCKET_ACESS_KEY, BUCKET_SECRET_KEY });
-
 const s3_client_params = {
-  // endpoint: 'https://s3.amazonaws.com', remove this as per suggestions from last section
   region: process.env?.AWS_BUCKET_REGION || "",
   credentials: {
     accessKeyId: process.env?.BUCKET_ACESS_KEY || "",
     secretAccessKey: process.env?.BUCKET_SECRET_KEY || "",
   },
   forcePathStyle: true,
-  // signatureVersion: 'v4',   you can remove this as JS SDK v3 uses sigv4 as a standard.
   requestHandler: new NodeHttpHandler({
     httpsAgent: new https.Agent({
       keepAlive: true,
@@ -61,7 +55,7 @@ export const uploadAWS = async (file: {
       // queueSize: 4, // optional concurrency configuration
       leavePartsOnError: false, // optional manually handle dropped parts
       params: {
-        Bucket: S3_BUCKET,
+        Bucket: process.env.S3_BUCKET,
         Key: `${Date.now().toString()}-${randomUUID()}-${file.originalname}`,
         Body: file.buffer,
         ACL: "public-read",
@@ -112,7 +106,7 @@ export const deleteFromAWS = async (
 
   const client = s3;
   const input = {
-    Bucket: S3_BUCKET,
+    Bucket: process.env.S3_BUCKET,
     Key: fileName,
   };
   const command = new DeleteObjectCommand(input);
@@ -120,75 +114,3 @@ export const deleteFromAWS = async (
 
   return response;
 };
-
-//       maxFileSize: 100 * 1024 * 1024, //100 MBs converted to bytes,
-//       allowEmptyFiles: false,
-//     };
-
-//     const form = formidable(options);
-
-//     form.parse(req, (err, fields, files) => {});
-
-//     form.on("error", error => {
-//       reject(error.message);
-//     });
-
-//     form.on("data", data => {
-//       if (data.name === "successUpload") {
-//         resolve(data.value);
-//       }
-//     });
-
-//     form.on("fileBegin", (formName, file) => {
-//       file.open = async function () {
-//         this._writeStream = new SVGTransform({
-//           transform(chunk, encoding, callback) {
-//             callback(null, chunk);
-//           },
-//         });
-
-//         this._writeStream.on("error", e => {
-//           form.emit("error", e);
-//         });
-
-//         // upload to S3
-//         new Upload({
-//           client: new S3Client({
-//             credentials: {
-//               accessKeyId,
-//               secretAccessKey,
-//             },
-//             region,
-//           }),
-//           params: {
-//             ACL: "public-read",
-//             Bucket,
-//             Key: `${Date.now().toString()}-${this.originalFilename}`,
-//             Body: this._writeStream,
-//           },
-//           tags: [], // optional tags
-//           queueSize: 4, // optional concurrency configuration
-//           partSize: 1024 * 1024 * 5, // optional size of each part, in bytes, at least 5MB
-//           leavePartsOnError: false, // optional manually handle dropped parts
-//         })
-//           .done()
-//           .then(data => {
-//             form.emit("data", { name: "complete", value: data });
-//           })
-//           .catch(err => {
-//             form.emit("error", err);
-//           });
-//       };
-
-//       file.end = function (cb) {
-//         this._writeStream.on("finish", () => {
-//           this.emit("end");
-//           cb();
-//         });
-//         this._writeStream.end();
-//       };
-//     });
-//   });
-// };
-
-// listBucketsForAccount();

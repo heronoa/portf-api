@@ -29,16 +29,12 @@ async function main() {
     ),
   ];
 
-  for (const user of users) {
-    await UpdateOrCreate(UserModel, { id: user.id }, user);
-  }
-  for (const project of projects) {
-    await UpdateOrCreate(
-      ProjectModel,
-      { project_id: project.project_id },
-      project,
-    );
-  }
+  await UpdateOrCreate(UserModel, { id: users[0].id }, users[0]);
+  await UpdateOrCreate(
+    ProjectModel,
+    { project_id: projects[0].project_id },
+    projects[0],
+  );
 }
 
 main().catch(e => {
