@@ -18,22 +18,22 @@ router.post("/validatetoken", AuthController.validateToken);
 router.get("/authping", authMiddleware, AuthController.ping);
 router.get("/projects", authMiddleware, ProjectsController.getAll);
 router.get("/projects/:id", authMiddleware, ProjectsController.getSingle);
-router.post(
-  "/projects/add",
-  authMiddleware,
-  upload.fields([
-    {
-      name: "thumb",
-      maxCount: 1,
-    },
-    {
-      name: "images",
-      maxCount: 9,
-    },
-  ]) as any,
-  ProjectsController.add,
-);
-router.post("/projects/remove", authMiddleware, ProjectsController.remove);
+// router.post(
+//   "/projects/add",
+//   authMiddleware,
+//   upload.fields([
+//     {
+//       name: "thumb",
+//       maxCount: 1,
+//     },
+//     {
+//       name: "images",
+//       maxCount: 9,
+//     },
+//   ]) as any,
+//   ProjectsController.add,
+// );
+// router.post("/projects/remove", authMiddleware, ProjectsController.remove);
 router.post(
   "/projects/update",
   authMiddleware,
