@@ -63,30 +63,31 @@ export const uploadAWS = async (file: {
   mimetype: string;
   size: number;
   buffer: any;
-}): Promise<AWSBucketRef | any> => {
-  try {
-    const parallelUploads3 = new Upload({
-      client: s3,
-      // queueSize: 4, // optional concurrency configuration
-      leavePartsOnError: false, // optional manually handle dropped parts
-      params: {
-        Bucket: S3_BUCKET,
-        Key: `${Date.now().toString()}-${randomUUID()}-${file.originalname}`,
-        Body: file.buffer,
-        ACL: "public-read",
-        ContentType: file.mimetype,
-      },
-    });
+}): any => {
+  return 
+  // try {
+  //   const parallelUploads3 = new Upload({
+  //     client: s3,
+  //     // queueSize: 4, // optional concurrency configuration
+  //     leavePartsOnError: false, // optional manually handle dropped parts
+  //     params: {
+  //       Bucket: S3_BUCKET,
+  //       Key: `${Date.now().toString()}-${randomUUID()}-${file.originalname}`,
+  //       Body: file.buffer,
+  //       ACL: "public-read",
+  //       ContentType: file.mimetype,
+  //     },
+  //   });
 
-    parallelUploads3.on("httpUploadProgress", progress => {
-      console.log(progress);
-    });
+  //   parallelUploads3.on("httpUploadProgress", progress => {
+  //     console.log(progress);
+  //   });
 
-    const result = await parallelUploads3.done();
+  //   const result = await parallelUploads3.done();
 
-    return result;
-  } catch (err) {
-    return JSON.stringify(err);
+  //   return result;
+  // } catch (err) {
+  //   return JSON.stringify(err);
   }
 };
 
@@ -94,22 +95,21 @@ const getFileFromUrlKey = (url: string) => {
   return url?.split("?")[0].split("/").pop();
 };
 
-export const deleteFromAWS = async (
-  fileUrl: string,
-): Promise<DeleteObjectCommandOutput> => {
-  const fileName = getFileFromUrlKey(fileUrl);
+export const deleteFromAWS = async (fileUrl: string): any => {
+  return;
+  // const fileName = getFileFromUrlKey(fileUrl);
 
-  console.log({ fileName });
+  // console.log({ fileName });
 
-  const client = s3;
-  const input = {
-    Bucket: S3_BUCKET,
-    Key: fileName,
-  };
-  const command = new DeleteObjectCommand(input);
-  const response = await client.send(command);
+  // const client = s3;
+  // const input = {
+  //   Bucket: S3_BUCKET,
+  //   Key: fileName,
+  // };
+  // const command = new DeleteObjectCommand(input);
+  // const response = await client.send(command);
 
-  return response;
+  // return response;
 };
 
 //       maxFileSize: 100 * 1024 * 1024, //100 MBs converted to bytes,
