@@ -27,34 +27,34 @@ const { AWS_BUCKET_REGION, BUCKET_ACESS_KEY, BUCKET_SECRET_KEY, S3_BUCKET } =
   process.env;
 // console.log({ AWS_BUCKET_REGION, BUCKET_ACESS_KEY, BUCKET_SECRET_KEY });
 
-const s3_client_params = {
-  // endpoint: 'https://s3.amazonaws.com', remove this as per suggestions from last section
-  region: process.env?.AWS_BUCKET_REGION || "",
-  credentials: {
-    accessKeyId: process.env?.BUCKET_ACESS_KEY || "",
-    secretAccessKey: process.env?.BUCKET_SECRET_KEY || "",
-  },
-  forcePathStyle: true,
-  // signatureVersion: 'v4',   you can remove this as JS SDK v3 uses sigv4 as a standard.
-  requestHandler: new NodeHttpHandler({
-    httpsAgent: new https.Agent({
-      keepAlive: true,
-      rejectUnauthorized: false,
-    }),
-  }),
-};
+// const s3_client_params = {
+//   // endpoint: 'https://s3.amazonaws.com', remove this as per suggestions from last section
+//   region: process.env?.AWS_BUCKET_REGION || "",
+//   credentials: {
+//     accessKeyId: process.env?.BUCKET_ACESS_KEY || "",
+//     secretAccessKey: process.env?.BUCKET_SECRET_KEY || "",
+//   },
+//   forcePathStyle: true,
+//   // signatureVersion: 'v4',   you can remove this as JS SDK v3 uses sigv4 as a standard.
+//   requestHandler: new NodeHttpHandler({
+//     httpsAgent: new https.Agent({
+//       keepAlive: true,
+//       rejectUnauthorized: false,
+//     }),
+//   }),
+// };
 
-export const s3 = new S3(s3_client_params);
+export const s3 = {};
 
-async function listBucketsForAccount() {
-  try {
-    const res = await s3.listBuckets({});
-    console.log("res", res);
-    console.log("SUCCESS check_list_buckets");
-  } catch (err) {
-    console.error("FAIL check_list_buckets got error", err);
-  }
-}
+// async function listBucketsForAccount() {
+//   try {
+//     const res = await s3.listBuckets({});
+//     console.log("res", res);
+//     console.log("SUCCESS check_list_buckets");
+//   } catch (err) {
+//     console.error("FAIL check_list_buckets got error", err);
+//   }
+// }
 
 export const uploadAWS = async (file: {
   fieldname: string;
@@ -63,8 +63,8 @@ export const uploadAWS = async (file: {
   mimetype: string;
   size: number;
   buffer: any;
-}): any => {
-  return 
+}): Promise<any> => {
+  return;
   // try {
   //   const parallelUploads3 = new Upload({
   //     client: s3,
@@ -88,14 +88,14 @@ export const uploadAWS = async (file: {
   //   return result;
   // } catch (err) {
   //   return JSON.stringify(err);
-  }
+  // }
 };
 
 const getFileFromUrlKey = (url: string) => {
   return url?.split("?")[0].split("/").pop();
 };
 
-export const deleteFromAWS = async (fileUrl: string): any => {
+export const deleteFromAWS = async (fileUrl: string): Promise<any> => {
   return;
   // const fileName = getFileFromUrlKey(fileUrl);
 
