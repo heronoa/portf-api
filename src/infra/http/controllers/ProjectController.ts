@@ -41,29 +41,29 @@ export class ProjectsController {
 
     const awsError = [];
 
-    if (files?.thumb?.[0]?.buffer) {
-      const s3BucketRef = await uploadAWS(files?.thumb?.[0]);
+    // if (files?.thumb?.[0]?.buffer) {
+    //   const s3BucketRef = await uploadAWS(files?.thumb?.[0]);
 
-      thumbLocation = await s3BucketRef?.Location;
-      if (!thumbLocation) {
-        awsError.push({ result: false, msg: "AWS S3 Bucket Error - thumb" });
-      }
-    }
-    if (files?.images?.[0]?.buffer) {
-      files?.images?.forEach(async (file: any) => {
-        if (file.buffer) {
-          const s3BucketRef = await uploadAWS(file);
-          if (s3BucketRef?.location) {
-            imagesLocation.push(s3BucketRef?.location);
-          } else {
-            awsError.push({
-              result: false,
-              msg: "AWS S3 Bucket Error - images",
-            });
-          }
-        }
-      });
-    }
+    //   thumbLocation = await s3BucketRef?.Location;
+    //   if (!thumbLocation) {
+    //     awsError.push({ result: false, msg: "AWS S3 Bucket Error - thumb" });
+    //   }
+    // }
+    // if (files?.images?.[0]?.buffer) {
+    //   files?.images?.forEach(async (file: any) => {
+    //     if (file.buffer) {
+    //       const s3BucketRef = await uploadAWS(file);
+    //       if (s3BucketRef?.location) {
+    //         imagesLocation.push(s3BucketRef?.location);
+    //       } else {
+    //         awsError.push({
+    //           result: false,
+    //           msg: "AWS S3 Bucket Error - images",
+    //         });
+    //       }
+    //     }
+    //   });
+    // }
 
     // console.log({ awsError });
 
@@ -153,12 +153,12 @@ export class ProjectsController {
 
     imagesToDelete.push(projectImagesToDelete);
 
-    if (imagesToDelete.length > 0) {
-      imagesDeletionResult = imagesToDelete.map(async (e: string) => {
-        const res = await deleteFromAWS(e || "");
-        return Boolean(res) as boolean;
-      });
-    }
+    // if (imagesToDelete.length > 0) {
+    //   imagesDeletionResult = imagesToDelete.map(async (e: string) => {
+    //     const res = await deleteFromAWS(e || "");
+    //     return Boolean(res) as boolean;
+    //   });
+    // }
 
     const deletionResult = imagesDeletionResult.some((e: any) => e === false);
 
